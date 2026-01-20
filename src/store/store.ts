@@ -6,6 +6,7 @@ interface Store {
     total: number
     contents: ShoppingCart
     addToCart: (product: Product) => void
+    updateQuantity: (id: Product['id'], quantity: number) => void
 }
 
 export const useStore = create<Store>()(devtools((set, get) => ({
@@ -34,6 +35,11 @@ export const useStore = create<Store>()(devtools((set, get) => ({
 
         set(() => ({
             contents
+        }))
+    },
+    updateQuantity: (id, quantity) => {
+        set((state) => ({
+            contents: state.contents.map(item => item.productId === id ? {...item, quantity} : item)
         }))
     }
 })))

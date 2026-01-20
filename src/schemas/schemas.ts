@@ -39,3 +39,4 @@ const ShoppingCartContentsSchema = ProductSchema.pick({
 export const ShoppingCartSchema = z.array(ShoppingCartContentsSchema)
 
 export type ShoppingCart = z.infer<typeof ShoppingCartSchema>
+export type CartItem = z.infer<typeof ShoppingCartContentsSchema>
