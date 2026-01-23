@@ -13,9 +13,10 @@ interface Store {
     calculateTotal: () => void
     applyCoupon: (couponName: string) => Promise<void>
     applyDiscount: () => void
+    clearOrder: () => void
 }
 
-export const useStore = create<Store>()(devtools((set, get) => ({
+const initialState = {
     total: 0,
     discount: 0,
     contents: [],
@@ -24,6 +25,10 @@ export const useStore = create<Store>()(devtools((set, get) => ({
         name: '',
         message: ''
     },
+}
+
+export const useStore = create<Store>()(devtools((set, get) => ({
+    ...initialState,
     
     addToCart: (product) => {
         const { id: productId, categoryId, ...data } = product
@@ -61,6 +66,9 @@ export const useStore = create<Store>()(devtools((set, get) => ({
         set((state) => ({
             contents: state.contents.filter(item => item.productId !== id)
         }))
+        if(!get().contents.length) {
+            get().clearOrder()
+        }
         get().calculateTotal()
     },
     calculateTotal: () => {
@@ -100,4 +108,9 @@ export const useStore = create<Store>()(devtools((set, get) => ({
             total
         }))
     },
+    clearOrder: () => {
+        set(() => ({
+            ...initialState
+        }))
+    }
 })))
