@@ -80,8 +80,9 @@ export const TransactionResponseSchema = z.object({
   contents: z.array(ContentsSchema)
 })
   
-  export const TransactionsResponseSchema = z.array(TransactionResponseSchema)
+export const TransactionsResponseSchema = z.array(TransactionResponseSchema)
 
 export type ShoppingCart = z.infer<typeof ShoppingCartSchema>
 export type CartItem = z.infer<typeof ShoppingCartContentsSchema>
 export type Coupon = z.infer<typeof CouponResponseSchema>
+export type Transaction = z.infer<typeof TransactionResponseSchema>
