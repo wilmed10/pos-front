@@ -2,6 +2,7 @@ import { Product } from "@/schemas/schemas"
 import { formatCurrency } from "@/utils/utils"
 import Image from "next/image"
 import Link from "next/link"
+import DeleteProductForm from "./DeleteProductForm"
 
 export default function ProductsTable({products}: {products: Product[]}) {
 
@@ -41,6 +42,7 @@ export default function ProductsTable({products}: {products: Product[]}) {
                             width={120}
                             height={120}
                             priority
+                            unoptimized
                         />
                       </td>
                       <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
@@ -59,13 +61,7 @@ export default function ProductsTable({products}: {products: Product[]}) {
                                 href={`/admin/products/${product.id}/edit`}
                             >Editar <span className="sr-only">, {product.name}</span></Link>
 
-                            <form>
-                                <input 
-                                    type="submit" 
-                                    className="text-red-600 hover:text-red-800 cursor-pointer"
-                                    value="Eliminar"
-                                />
-                            </form>
+                            <DeleteProductForm productId={product.id}/>
                         </div>
                       </td>
                     </tr>

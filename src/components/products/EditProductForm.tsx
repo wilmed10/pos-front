@@ -1,8 +1,7 @@
 'use client'
 
 import { updateProduct } from "@/actions/update-product-action"
-import { useParams } from "next/navigation"
-import { useRouter } from "next/router"
+import { useParams, useRouter } from "next/navigation"
 import { useActionState, useEffect } from "react"
 import { toast } from "react-toastify"
 
