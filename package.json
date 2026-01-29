@@ -11,10 +11,11 @@
   "dependencies": {
     "@tanstack/react-query": "^5.90.20",
     "date-fns": "^4.1.0",
-    "next": "16.1.2",
+    "next": "^16.1.6",
     "react": "19.2.3",
     "react-calendar": "^6.0.0",
     "react-dom": "19.2.3",
+    "react-dropzone": "^14.4.0",
     "react-toastify": "^11.0.5",
     "zod": "^4.3.5",
     "zustand": "^5.0.10"
