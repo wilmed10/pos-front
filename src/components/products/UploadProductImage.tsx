@@ -1,15 +1,22 @@
 'use client'
 
-import { useCallback } from 'react'
+import { uploadImage } from '@/actions/upload-image-action'
+import { getImagePath } from '@/utils/utils'
+import Image from 'next/image'
+import { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 
-export default function UploadProductImage() {
+export default function UploadProductImage({currentImage}: {currentImage? : string}) {
+
+    const [image, setImage] = useState('')
 
     const onDrop = useCallback(async (files: File[]) => {
         const formData = new FormData()
         files.forEach(file => {
             formData.append('file', file)
         })
+        const image = await uploadImage(formData)
+        setImage(image)
     }, [])
     
     const { getRootProps, getInputProps, isDragActive, isDragReject, isDragAccept } = useDropzone({
@@ -38,6 +45,42 @@ export default function UploadProductImage() {
                         {!isDragActive && (<p>Arrastra y suelta una imagen aquí</p>)}
                 </div>
             </div>
+
+            {image && (
+                <div className="py-5 space-y3">
+                    <p className="font-bold">Imagen producto:</p>
+                    <div className="w-75 h-105 relative">
+                        <Image
+                            src={getImagePath(image)}
+                            alt='Imagen publicada'
+                            className='object-cover'
+                            fill
+                            unoptimized
+                        />
+                    </div>
+                </div>
+            )}
+
+            {currentImage && !image && (
+                <div className="py-5 space-y3">
+                    <p className="font-bold">Imagen actual:</p>
+                    <div className="w-75 h-105 relative">
+                        <Image
+                            src={getImagePath(image)}
+                            alt='Imagen publicada'
+                            className='object-cover'
+                            fill
+                            unoptimized
+                        />
+                    </div>
+                </div>
+            )}
+
+            <input
+                type='hidden'
+                name='image'
+                defaultValue={image ? image : currentImage}
+            />
         </>
     )
 }

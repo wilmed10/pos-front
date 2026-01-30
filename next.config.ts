@@ -6,7 +6,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: process.env.DOMAIN!
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com'
+      },
     ]
   }
 };
